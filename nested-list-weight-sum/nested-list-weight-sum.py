@@ -42,19 +42,13 @@
 #        """
 ​
 class Solution:
-    ans = None
-    def __init__(self):
-        self.ans = 0
     def depthSum(self, nestedList: List[NestedInteger]) -> int:
-        def calculate_value(nl , depth):
-            result = 0
-            if nl.isInteger():
-                result =  nl.getInteger()*depth
-            else:
-                for each in nl.getList():
-                    result += calculate_value(each, depth+1)
-            return result
-        
-        for each in nestedList:
-            self.ans += calculate_value(each, 1)
-        return self.ans
+        def iterate_sum(nl, depth):
+            sum_ = 0
+            for each in nl:
+                if each.isInteger():
+                    sum_ += each.getInteger()*depth
+                else:
+                    sum_ += iterate_sum(each.getList(), depth+1)
+            return sum_
+        return iterate_sum(nestedList, 1)
