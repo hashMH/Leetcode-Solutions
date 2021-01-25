@@ -11,11 +11,11 @@ class Solution:
         
         seen = set()
         
-        node = dummy
-        while node:
-            node = node.next
-            if node in seen:
+        fast_ptr = dummy
+        slow_ptr = dummy
+        while fast_ptr.next and fast_ptr.next.next:
+            fast_ptr = fast_ptr.next.next
+            slow_ptr = slow_ptr.next
+            if fast_ptr == slow_ptr:
                 return True
-            else:
-                seen.add(node)
         return False
